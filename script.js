@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const stopBtn = document.getElementById('stop-btn');
     const ttsStatus = document.getElementById('tts-status');
 
-    const voicerssKeyInput = document.getElementById('voicerss-key');
+    // Removed: voicerssKeyInput
 
     const recordBtn = document.getElementById('record-btn');
     const downloadBtn = document.getElementById('download-btn');
@@ -15,23 +15,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sttStatus = document.getElementById('stt-status');
 
     // --- Global State ---
-    let currentAudio = null; // To keep track of current playing audio
+    let currentUtterance = null; // To keep track of current playing audio
 
     // --- Feature Detection for STT (Browser's Web Speech API) ---
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = SpeechRecognition ? new SpeechRecognition() : null;
     let isRecording = false;
 
-    // --- TTS (VoiceRSS) Implementation ---
+    // --- TTS (Browser's SpeechSynthesis) Implementation ---
 
     async function speak(text) {
-        const voicerssKey = voicerssKeyInput.value.trim();
-
-        if (!voicerssKey) {
-            ttsStatus.textContent = 'Please enter your VoiceRSS API Key.';
-            return;
-        }
-
         if (text.trim() === '') {
             ttsStatus.textContent = 'Please enter some text to speak.';
             return;
@@ -45,46 +38,58 @@ document.addEventListener('DOMContentLoaded', async () => {
             const translatedText = await translateText(text, 'zh-HK');
             ttsStatus.textContent = 'Generating audio...';
 
-            const url = `https://api.voicerss.org/?key=${voicerssKey}&src=${encodeURIComponent(translatedText)}&hl=zh-hk&v=Lina&r=0&c=MP3&f=44khz_16bit_stereo`;
-            
-            // VoiceRSS returns an audio file directly or an error message as plain text
-            const response = await fetch(url);
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(translatedText);
+                utterance.lang = 'zh-HK'; // Attempt to use Cantonese
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`VoiceRSS Error: ${response.status} - ${errorText}`);
-            }
+                // Optional: Try to find a suitable Cantonese voice
+                const voices = window.speechSynthesis.getVoices();
+                const cantoneseVoice = voices.find(voice => voice.lang === 'zh-HK' || voice.lang === 'yue-HK' || voice.name.includes('Cantonese'));
+                if (cantoneseVoice) {
+                    utterance.voice = cantoneseVoice;
+                } else {
+                    console.warn('No specific Cantonese voice found, using default for zh-HK or first available.');
+                }
 
-            // Play the audio
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-            currentAudio = new Audio(URL.createObjectURL(await response.blob()));
-            currentAudio.play();
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+                currentUtterance = utterance;
+                window.speechSynthesis.speak(utterance);
 
-            ttsStatus.textContent = 'Speaking...';
-            currentAudio.onended = () => {
-                ttsStatus.textContent = 'Ready.';
+                ttsStatus.textContent = 'Speaking...';
+                utterance.onend = () => {
+                    ttsStatus.textContent = 'Ready.';
+                    playBtn.disabled = false;
+                    currentUtterance = null;
+                };
+                utterance.onerror = (event) => {
+                    ttsStatus.textContent = `Error playing audio: ${event.error}.`;
+                    console.error('SpeechSynthesis error:', event);
+                    playBtn.disabled = false;
+                    currentUtterance = null;
+                };
+            } else {
+                ttsStatus.textContent = 'SpeechSynthesis not supported in this browser.';
+                console.error('SpeechSynthesis not supported.');
                 playBtn.disabled = false;
-            };
-            currentAudio.onerror = (e) => {
-                ttsStatus.textContent = `Error playing audio.`;
-                console.error('Audio playback error:', e);
-                playBtn.disabled = false;
-            };
+            }
 
         } catch (error) {
             ttsStatus.textContent = `Error: ${error.message}`;
-            console.error('VoiceRSS TTS Error:', error);
+            console.error('TTS Error:', error);
             playBtn.disabled = false;
         }
     }
 
     stopBtn.addEventListener('click', () => {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
+        if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel(); // Stop all speech
+            if (currentUtterance) {
+                currentUtterance.onend = null; // Prevent onend from firing after cancel
+                currentUtterance.onerror = null;
+                currentUtterance = null;
+            }
             ttsStatus.textContent = 'Ready.';
             playBtn.disabled = false;
         }
