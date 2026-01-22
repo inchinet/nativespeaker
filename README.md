@@ -1,7 +1,8 @@
 # Native Speaker (VoiceRSS TTS)
 
 A simple, lightweight web application for text-to-speech and speech-to-text, powered by VoiceRSS for high-quality Cantonese voices. This version runs locally with a simple web server and uses an online API for speech generation.
-![UI](https://github.com/inchinet/nativespeaker/blob/main/nativespeaker.png)
+![UI](https://github.com/inchinet/nativespeaker/blob/master/nativespeaker.png)
+
 
 ## Features
 
