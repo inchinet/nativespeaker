@@ -1,7 +1,7 @@
 # Native Speaker (Browser TTS)
 
 A simple, lightweight web application for text-to-speech and speech-to-text, leveraging browser-native capabilities for speech generation.
-![UI](https://github.com/inchinet/nativespeaker/blob/main/nativespeaker.png)
+![UI](https://github.com/inchinet/nativespeaker/blob/master/nativespeaker.png)
 
 ## Features
 
