@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Native Speaker (VoiceRSS TTS)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <header>
+                <h1>Native Speaker 廣東話翻譯</h1>
+                <p>高品質 VoiceRSS 文字轉語音和語音轉文字服務</p>
+            </header>
+
+            <div class="feature-box" id="tts-section">
+                <h2>文字翻譯語音 (日文，簡中，繁中，英文 翻譯 廣東話 語音)</h2>
+                <p>由 VoiceRSS 提供技術支援（需網路連接，每日免費使用）</p>
+                <div id="tts-status" class="status-box">Ready.</div>
+
+                <div class="api-config">
+                    <label for="voicerss-key">VoiceRSS API Key:</label>
+                    <input type="password" id="voicerss-key" value="" placeholder="Paste your VoiceRSS API Key here">
+                </div>
+
+                <div class="file-upload-area">
+                    <input type="file" id="file-input" accept=".txt,.srt,text/plain">
+                    <label for="file-input" class="file-upload-label">選擇文件</label>
+                    <span id="file-name">未選擇文件</span>
+                </div>
+
+                <textarea id="tts-input" placeholder="在此輸入文字..."></textarea>
+                <div class="controls">
+                    <button id="play-btn">Play</button>
+                    <button id="stop-btn">Stop</button>
+                </div>
+            </div>
+
+            <div class="feature-box" id="stt-section">
+                <h2>語音翻譯文字 (日文，國語，廣東話，英文 翻譯 繁中文字)</h2>
+                <p>錄製音頻，然後將其轉錄並翻譯成繁體中文字</p>
+                <div class="controls">
+                    <button id="record-btn">錄音 Record</button>
+                    <button id="download-btn">下載文件</button>
+                </div>
+                <textarea id="stt-output" placeholder="轉錄文字將顯示在此處..."></textarea>
+                 <div id="stt-status"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Operating System Files
+Thumbs.db
+.DS_Store
+.localized
+
+# IDE-specific files (e.g., VS Code, IntelliJ, Sublime Text)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python Virtual Environments (if you were to create one here)
+venv/
+.venv/
+
+# Python artifacts (if any Python scripts were used locally)
+__pycache__/
+*.pyc
+*.log
+
+# Dependencies / build artifacts (common for web projects)
+node_modules/
+dist/
+build/
+.cache/
+
+# User-specific files that may contain keys (though keys are input by user)
+# If you were to store API keys in files, they would go here.
+.env
+.env.*
+config.js (if it contained secrets)

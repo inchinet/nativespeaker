@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+
+:root {
+    --background-start: #6d6d6d;
+    --background-end: #333333;
+    --glass-color: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --text-color: #f0f0f0;
+    --primary-color: #4a90e2;
+    --hover-color: #5aa1f2;
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px; /* Portrait phone screen width */
+    height: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.feature-box {
+    background: var(--glass-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.feature-box h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+button {
+    flex-grow: 1;
+    padding: 12px 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+button:hover, button:focus {
+    background-color: var(--hover-color);
+    outline: none;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#record-btn.recording {
+    background-color: #e24a4a;
+}
+
+/* File Upload Area */
+.file-upload-area {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.file-upload-area input[type="file"] {
+    display: none;
+}
+
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-upload-label:hover {
+    background-color: var(--hover-color);
+}
+
+#file-name {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Text Display & Textarea */
+.text-display-area, #stt-output, #tts-input {
+    width: calc(100% - 30px); /* 100% - padding */
+    min-height: 120px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.text-display-area {
+    line-height: 1.6;
+}
+
+#stt-output, #tts-input {
+    resize: vertical;
+    font-family: 'Noto Sans TC', sans-serif;
+    margin-bottom: 15px;
+}
+
+#stt-output:focus, #tts-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.api-config {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.api-config label {
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.api-config input[type="password"],
+.api-config input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--text-color);
+    font-size: 1em;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.api-config input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.api-config input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.status-box {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #f0f0f0;
+    border: 1px solid var(--border-color);
+}
+
