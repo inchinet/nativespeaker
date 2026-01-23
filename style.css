@@ -12,7 +12,7 @@
 
 body {
     font-family: 'Noto Sans TC', sans-serif;
-    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+    background: linear-gradient(135deg, #767eea 0%, #5b1d59 100%);
     color: var(--text-color);
     margin: 0;
     padding: 20px;
